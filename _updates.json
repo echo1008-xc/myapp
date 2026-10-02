@@ -1,0 +1,206 @@
+{
+  "name": "preview",
+  "id": "01a0be19-88c9-705c-b30e-f857b9acbfa3",
+  "currentPage": [
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.5",
+      "isRollBackToEmbedded": false,
+      "group": "d918dcee-049b-4cbb-afae-1642455fde40",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (10 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.5",
+      "isRollBackToEmbedded": false,
+      "group": "7844ed0e-587c-42b5-9ba7-0b4cf309b33e",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (16 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.5",
+      "isRollBackToEmbedded": false,
+      "group": "b06e47cb-9d0f-4ec6-bff7-ca861dbcd9ae",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (17 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.5",
+      "isRollBackToEmbedded": false,
+      "group": "b6352d8e-83ea-45ce-b464-36b333ed9c5b",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (18 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.5",
+      "isRollBackToEmbedded": false,
+      "group": "5b7a7958-0254-4454-aeb5-bbea837f0129",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (47 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "f82b7d0e-68d6-4b7a-a74e-ee4467a30564",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (48 minutes ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "15e6b9f5-ea6e-4e85-9946-30462d8fb139",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (7 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "2c10031c-1c5c-46de-872a-ed9eeb0522a0",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"trend: synced card tabs, plain week ends, softer title\" (7 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "7af9dbc1-e1ab-4dd4-974c-0cc650cbe97e",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (7 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "773c461c-0847-4e1b-8bdc-87bb0dc03f16",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (7 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "d5d02b99-ad3d-4bd1-840c-e858c976bca1",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "5f2a2d3a-0f44-4e21-af37-18266cf95a05",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "dd461386-1821-4ea8-a81f-787d56c9ee85",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "0a135a73-a499-48bc-a3bf-d0ddd509f27f",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"trend: card header tabs week/month, whole week & month span\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "8c3fe3ac-0eb0-40b8-a3fb-a24670e82e9c",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "597e5216-44f6-47b3-9fe1-9270e040dd8f",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"trend: tap title to switch 7d/week, 30d/month\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "bfa9953a-cacd-4118-8e90-5c1050664ec8",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "2505a6d3-72f5-41a8-9857-78710453b2fc",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "af22f0e9-80d8-4bf0-9078-258c8be55d2d",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"trend-down: target line even, drop over-goal wording\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "b0803692-67e0-471a-b526-a7acd208d607",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "8bd51e6c-0c17-4894-8722-cae74d973fa8",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"trend-axis-target-ticks\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "ecd7a88c-c434-4cfd-9f8a-36cf18afc2f7",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "42eb627c-44d3-4265-856d-818f5746e8a5",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "42289a52-bc2c-41f4-a3bc-9cca879180cc",
+      "platforms": "android, ios"
+    },
+    {
+      "branch": "preview",
+      "message": "\"auto-push\" (8 hours ago by echo (robot))",
+      "runtimeVersion": "1.2.4",
+      "isRollBackToEmbedded": false,
+      "group": "0a8aef15-3c3f-43cd-9c25-c12fb1b796ff",
+      "platforms": "android, ios"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "expo": {
+    "name": "糖Gi可De",
+    "slug": "myapp",
+    "version": "1.2.4",
+    "icon": "./assets/icon.png",
+    "orientation": "default",
+    "updates": {
+      "url": "https://u.expo.dev/61f9c242-c151-421a-9586-eaa60b27c4f7"
+    },
+    "scheme": "myapp",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FFFFFF",
+    "android": {
+      "package": "com.aike.mytasks",
+      "versionCode": 8,
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.REQUEST_INSTALL_PACKAGES"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aike.mytasks"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "允许「糖Gi可De」读取照片，用来分析餐盘。",
+          "cameraPermission": "允许「糖Gi可De」使用相机，拍摄餐盘照片。"
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "允许「糖Gi可De」读取相册，好把你以前拍的餐盘照片调出来看。",
+          "savePhotosPermission": "允许「糖Gi可De」把拍好的餐盘照片存进你的手机相册。",
+          "isAccessMediaLocationEnabled": false
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "buildArchs": [
+              "arm64-v8a"
+            ]
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "61f9c242-c151-421a-9586-eaa60b27c4f7"
+      },
+      "supabaseUrl": "https://oaqknzdiszpohgavbvmr.supabase.co",
+      "supabaseAnonKey": "sb_publishable_vrx39NKtFhym2KwsD3_9Iw_k3yn5HZ7"
+    },
+    "owner": "echo1008s-team",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
+  }
+}
