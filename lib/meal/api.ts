@@ -100,11 +100,22 @@ function isLegacyShape(rawItems: unknown[]): boolean {
 
 function normalizeItem(raw: unknown, legacy: boolean): { item: MealItem; filled: boolean } {
   const r = (raw ?? {}) as Record<string, unknown>;
-  const portion = str(r.portion, '份量未知');
-  const name = str(r.name, '未知食物');
+  // 2026-10-12 hotfix：份量（portion）原本兜底成「份量未知」占位废话，
+  // 但这一行实际是「模型识别时给的食物细化说明位」（如「内馅未知，暂按肉包子计算」），
+  // 云端没给单独说明时应当整行不显示，绝不显示占位废话。所以：给了就保留原文，没给就留空。
+  const portion = typeof r.portion === 'string' && r.portion.trim() ? r.portion.trim() : '';
+  let name = str(r.name, '未知食物');
   const grams = tidyGrams(pickGrams(r.grams, portion));
   let carb = num(r.carb);
   let note = str(r.note) || undefined;
+  // 细化说明归位（2026-10-12 hotfix）：模型常把「对食物的细化说明」塞进 name 的括号里，
+  // 形如「肉包子（内馅未知，暂按肉包子计算）」。这里把括号内容抽出来当 note 显示到
+  // 下面那行，name 同步去括号保持干净；云端没给单独说明字段时，下面那行就空着不显示。
+  const bracket = name.match(/[（(]([^（）()]{2,40})[）)]/);
+  if (bracket && !note) {
+    note = bracket[1].trim();
+    name = name.replace(bracket[0], '').replace(/\s+/g, ' ').trim();
+  }
   let filled = false;
 
   // 云端函数还没更新到 v4（只回「糖 / 油」，没有碳水）时，carb 一律是 0。
@@ -225,7 +236,9 @@ const ANALYZE_ATTEMPTS = 3;
 //    所以「想让它重新估一次」这个需求照样满足：重新拍一张、或从相册另选一张。
 // ⚠️ 缓存的是「AI 原始估算」，**不包含**用户后来改的克数。
 //    重新分析 = 回到原始估算，这符合直觉（用户亲手改的东西不该被缓存污染）。
-const CACHE_KEY = 'meal.analysis.cache.v1';
+// 2026-10-12 hotfix：升到 v3 作废旧缓存。修复前（v1 时代）的旧结果里 name 带括号、
+// portion 是「份量未知」，不升版本号重测同一张照片会命中旧缓存、新逻辑没机会跑。
+const CACHE_KEY = 'meal.analysis.cache.v3';
 const CACHE_MAX = 8; // 只留最近 8 张：够连点，也不占地方
 
 type CacheEntry = { key: string; at: number; data: MealAnalysis };

@@ -2,7 +2,7 @@
   "expo": {
     "name": "糖Gi可De",
     "slug": "myapp",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "icon": "./assets/icon.png",
     "orientation": "default",
     "updates": {

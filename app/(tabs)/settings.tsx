@@ -12,6 +12,10 @@ import { colors, radius, space } from '../../lib/theme';
 import { checkForUpdate, getLocalVersion } from '../../lib/update/checker';
 import type { ReleaseInfo } from '../../lib/update/types';
 
+// 界面版本号（2026-10-12 hotfix）：每次推热更前升一号。设置页「App 更新」卡片里
+// 显示这一行 —— 旧代码没有它，所以「看到这行 = 新代码已生效」，一眼就能确认热更到没到。
+const UI_VERSION = 'v1012h';
+
 type RowProps = {
   label: string;
   value: string;
@@ -125,6 +129,7 @@ export default function SettingsScreen() {
       <Text style={styles.h2}>App 更新</Text>
       <View style={styles.card}>
         <Row label="当前版本" value={`${local.version}（第 ${local.versionCode} 版）`} />
+        <Row label="界面版本" value={UI_VERSION} />
         <Text style={styles.syncHint}>
           以后出新版本，这里点一下就能在 App 里直接下载安装，不用再去浏览器找安装包。
         </Text>

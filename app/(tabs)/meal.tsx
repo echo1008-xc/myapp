@@ -1649,11 +1649,15 @@ export default function MealScreen() {
             <Text style={styles.totalLabel}>本餐合计</Text>
             <View style={styles.totalRow}>
               <View style={styles.totalCell}>
-                <Text style={styles.totalNum}>{totals.calories}</Text>
+                <Text style={styles.totalNum} numberOfLines={1} adjustsFontSizeToFit>
+                  {totals.calories}
+                </Text>
                 <Text style={styles.totalUnit}>千卡</Text>
               </View>
               <View style={styles.totalCell}>
-                <Text style={styles.totalNum}>{totals.carb}</Text>
+                <Text style={styles.totalNum} numberOfLines={1} adjustsFontSizeToFit>
+                  {totals.carb}
+                </Text>
                 <Text style={styles.totalUnit}>克碳水</Text>
               </View>
             </View>
@@ -2419,6 +2423,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '700',
     color: colors.accent,
+    // 2026-10-12 hotfix：安卓 fontWeight:'700' 走描边加粗，绘制时比常规粗体宽，
+    // 文本框被量窄 → 末位折到第二行被裁（664 显示成 66）。stretch 撑满整格 + 居中 +
+    // 最小字号缩放，保证「本餐合计」永远完整显示末位。
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    minimumFontScale: 0.5,
   },
   totalUnit: {
     fontSize: 11,
