@@ -1,0 +1,58 @@
+name: Build Android APK (免费出包)
+
+# 手动触发：在 GitHub 仓库的 Actions 页点 "Run workflow"
+# 选 profile：
+#   preview    —— 匹配你手机当前的热更频道（日常出包用这个）
+#   production —— 正式发布 / 上商店用
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "出包配置（preview=日常匹配手机热更频道 / production=正式发布）"
+        required: true
+        default: "preview"
+        type: choice
+        options:
+          - preview
+          - production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 用仓库 Secret 里的 EXPO_TOKEN 登录 EAS（不写死 token）
+      - name: 登录 EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 安装依赖
+        run: npm ci
+
+      # EAS 免费额度（每月 30 次）在云端出包；签名密钥存在 EAS 项目里，本地不碰
+      - name: 出包并取下载地址
+        id: build
+        run: |
+          JSON=$(eas build -p android --profile ${{ github.event.inputs.profile }} --non-interactive --json)
+          URL=$(echo "$JSON" | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const o=JSON.parse(d);console.log(o.artifacts.buildUrl || o.artifacts.applicationArchive || '')})")
+          echo "apk_url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: 下载 APK
+        run: curl -L -o app-release.apk "${{ steps.build.outputs.apk_url }}"
+
+      - name: 上传 APK 供下载（保留 30 天）
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-${{ github.event.inputs.profile }}
+          path: app-release.apk
+          retention-days: 30
