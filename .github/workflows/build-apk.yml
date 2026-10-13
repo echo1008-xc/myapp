@@ -4,6 +4,13 @@ name: Build Android APK (免费出包)
 # 选 profile：
 #   preview    —— 匹配你手机当前的热更频道（日常出包用这个）
 #   production —— 正式发布 / 上商店用
+#
+# 2026-10-14 改版：从 EAS 云端出包改为 --local 本地出包。
+# 原因：EAS 免费额度每月 30 次用完就得出包等重置；--local 在 GitHub 的
+# 电脑上现装 Android 环境编译，不占 EAS 云端额度，真正免费、无限次。
+# 签名密钥(upload-keystore.jks)不在仓库里，由 eas 用 EXPO_TOKEN 从
+# EAS 凭据服务器现场拉取，与之前云端出包用的是同一把签名。
+
 on:
   workflow_dispatch:
     inputs:
@@ -19,9 +26,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - name: 拉取代码
         uses: actions/checkout@v4
+
+      - name: 安装 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -29,30 +43,29 @@ jobs:
           node-version: 20
           cache: npm
 
-      # 用仓库 Secret 里的 EXPO_TOKEN 登录 EAS（不写死 token）
-      - name: 登录 EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
       - name: 安装依赖
         run: npm ci
 
-      # EAS 免费额度（每月 30 次）在云端出包；签名密钥存在 EAS 项目里，本地不碰
-      - name: 出包并取下载地址
-        id: build
-        run: |
-          JSON=$(eas build -p android --profile ${{ github.event.inputs.profile }} --non-interactive --json)
-          URL=$(echo "$JSON" | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const o=JSON.parse(d);console.log(o.artifacts.buildUrl || o.artifacts.applicationArchive || '')})")
-          echo "apk_url=$URL" >> "$GITHUB_OUTPUT"
+      # GitHub 的 ubuntu 电脑自带 Android SDK，这里把许可全部接受掉，
+      # 否则编译时 gradle 会卡在"未接受许可"
+      - name: 接受 Android SDK 许可
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
-      - name: 下载 APK
-        run: curl -L -o app-release.apk "${{ steps.build.outputs.apk_url }}"
+      # --local = 在这台 GitHub 电脑上本地编译，不消耗 EAS 云端额度
+      - name: 本地出包
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: >
+          npx eas-cli@10.2.4 build
+          -p android
+          --profile ${{ github.event.inputs.profile }}
+          --local
+          --non-interactive
+          --output ./output/app-release.apk
 
       - name: 上传 APK 供下载（保留 30 天）
         uses: actions/upload-artifact@v4
         with:
           name: app-release-${{ github.event.inputs.profile }}
-          path: app-release.apk
+          path: output/app-release.apk
           retention-days: 30
