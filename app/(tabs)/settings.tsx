@@ -14,7 +14,7 @@ import type { ReleaseInfo } from '../../lib/update/types';
 
 // 界面版本号（2026-10-12 hotfix）：每次推热更前升一号。设置页「App 更新」卡片里
 // 显示这一行 —— 旧代码没有它，所以「看到这行 = 新代码已生效」，一眼就能确认热更到没到。
-const UI_VERSION = 'v1012h';
+const UI_VERSION = 'v1012i';
 
 type RowProps = {
   label: string;

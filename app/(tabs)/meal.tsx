@@ -1791,6 +1791,9 @@ export default function MealScreen() {
             // 补一句原始份量说法（如「一小碗」）。改过之后原来的说法就不准了，不再显示。
             const hint =
               it.note ?? (it.edited !== 'none' || /[0-9]/.test(it.portion) ? '' : it.portion);
+            // 把「括号说明 + 云端 note + 手动添加的估算依据(basis)」合并到同一行展示，
+            // 满足「说明都放在一起」的诉求；任一项没有就不占位。
+            const noteLine = [hint, it.basis].filter(Boolean).join(' · ');
             // 这种食物的升糖指数。每次渲染现查 —— 因为名称是可以改的，
             // 用户把「米饭」改成「苹果」，GI 必须当场跟着变，不能存死。
             // 查表很便宜（几十条关键词比对），不必缓存。
@@ -1969,8 +1972,7 @@ export default function MealScreen() {
                       ) : null}
                     </View>
 
-                    {hint ? <Text style={styles.itemNote}>{hint}</Text> : null}
-                    {it.basis ? <Text style={styles.basis}>{it.basis}</Text> : null}
+                    {noteLine ? <Text style={styles.itemNote}>{noteLine}</Text> : null}
                   </>
                 )}
               </View>

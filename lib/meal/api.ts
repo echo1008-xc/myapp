@@ -108,13 +108,21 @@ function normalizeItem(raw: unknown, legacy: boolean): { item: MealItem; filled:
   const grams = tidyGrams(pickGrams(r.grams, portion));
   let carb = num(r.carb);
   let note = str(r.note) || undefined;
-  // 细化说明归位（2026-10-12 hotfix）：模型常把「对食物的细化说明」塞进 name 的括号里，
-  // 形如「肉包子（内馅未知，暂按肉包子计算）」。这里把括号内容抽出来当 note 显示到
-  // 下面那行，name 同步去括号保持干净；云端没给单独说明字段时，下面那行就空着不显示。
-  const bracket = name.match(/[（(]([^（）()]{2,40})[）)]/);
-  if (bracket && !note) {
-    note = bracket[1].trim();
+  // 细化说明归位（2026-10-12 hotfix → 2026-10-13 修正）：
+  // 模型常把「对食物的细化说明」塞进 name 的括号里，形如「肉包子（内馅未知，暂按肉包子计算）」，
+  // 偶尔还用全角括号「米饭【约150克】」。这里**无条件**把括号内容抽出来，归并到下一行的
+  // note（和其他说明放同一行），name 同步去括号保持干净。
+  // ⚠️ 旧逻辑只在「云端没给 note」时才抽括号，结果云端一旦给了 note，括号就留在名字上
+  //    —— 这正是用户看到「名称后面还挂着括号」的根因。现在改为：名字里的括号一律去掉，
+  //    括号内容若没被现有 note 覆盖就并到 note 最前面（用「｜」连接，和别处口径一致）。
+  const bracket = name.match(/[（(【\[]([^（）()【\[\]]{2,60})[）)】\]]/);
+  if (bracket) {
+    const bc = bracket[1].trim();
     name = name.replace(bracket[0], '').replace(/\s+/g, ' ').trim();
+    // 括号内容归位到下一行说明：若已有 note 且已含该内容就不重复；否则并到最前面。
+    if (bc && !(note && note.includes(bc))) {
+      note = note ? `${bc}｜${note}` : bc;
+    }
   }
   let filled = false;
 
@@ -236,9 +244,10 @@ const ANALYZE_ATTEMPTS = 3;
 //    所以「想让它重新估一次」这个需求照样满足：重新拍一张、或从相册另选一张。
 // ⚠️ 缓存的是「AI 原始估算」，**不包含**用户后来改的克数。
 //    重新分析 = 回到原始估算，这符合直觉（用户亲手改的东西不该被缓存污染）。
-// 2026-10-12 hotfix：升到 v3 作废旧缓存。修复前（v1 时代）的旧结果里 name 带括号、
-// portion 是「份量未知」，不升版本号重测同一张照片会命中旧缓存、新逻辑没机会跑。
-const CACHE_KEY = 'meal.analysis.cache.v3';
+// 2026-10-13 修正：升到 v4 作废旧缓存。本次把「括号说明归位」改成**无条件**抽取
+// （不再受「云端给了 note 就跳过」的限制），旧 v3 缓存里可能仍残留挂着括号的 name，
+// 不升版本号重测同一张照片会命中旧缓存、新逻辑没机会跑。
+const CACHE_KEY = 'meal.analysis.cache.v4';
 const CACHE_MAX = 8; // 只留最近 8 张：够连点，也不占地方
 
 type CacheEntry = { key: string; at: number; data: MealAnalysis };
