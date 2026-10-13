@@ -26,7 +26,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # 本地全量编译 RN 原生代码首次很慢（GitHub 免费电脑 2 核），给足 6 小时上限，
+    # 否则会像上次一样在 90 分钟被 GitHub 强制取消（显示 cancelled，其实是超时）。
+    timeout-minutes: 360
     steps:
       - name: 拉取代码
         uses: actions/checkout@v4
@@ -55,6 +57,7 @@ jobs:
       - name: 本地出包
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          CI: "1"
         run: >
           npx eas-cli@10.2.4 build
           -p android
