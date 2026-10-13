@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  FlatList,
   Pressable,
-  RefreshControl,
   StyleSheet,
   Text,
-  TextInput,
   View,
   type StyleProp,
   type TextStyle,
@@ -452,128 +449,8 @@ export default function HomeScreen() {
           </GridFoot>
         </View>
 
-        {counts.all > 0 ? (
-          <View style={styles.toolbar}>
-            <View style={styles.searchRow}>
-              <TextInput
-                style={styles.search}
-                value={query}
-                onChangeText={setQuery}
-                placeholder="搜索标题或备注"
-                placeholderTextColor={colors.sub}
-                returnKeyType="search"
-                autoCapitalize="none"
-                autoCorrect={false}
-                maxLength={40}
-              />
-              {searching ? (
-                <Pressable hitSlop={10} onPress={() => setQuery('')}>
-                  <Text style={styles.clearText}>清除</Text>
-                </Pressable>
-              ) : null}
-            </View>
-
-            {searching ? (
-              <Text style={styles.resultCount}>找到 {visible.length} 条结果</Text>
-            ) : null}
-
-            <View style={styles.chipRow}>
-              {FILTERS.map((item) => {
-                const on = filter === item.key;
-                return (
-                  <Pressable
-                    key={item.key}
-                    style={[styles.chip, on && styles.chipOn]}
-                    onPress={() => setFilter(item.key)}
-                  >
-                    <Text style={[styles.chipText, on && styles.chipTextOn]}>
-                      {item.label} {counts[item.key]}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-
-            <View style={styles.catFilterRow}>
-              <Pressable
-                style={[styles.catChip, catFilter === 'all' && styles.catChipOn]}
-                onPress={() => setCatFilter('all')}
-              >
-                <Text style={[styles.catChipText, catFilter === 'all' && styles.catChipTextOn]}>
-                  全部分类
-                </Text>
-              </Pressable>
-              {CATEGORIES.filter((c) => c.key !== 'none').map((c) => {
-                const on = catFilter === c.key;
-                return (
-                  <Pressable
-                    key={c.key}
-                    style={[styles.catChip, on && styles.catChipOn, on && { borderColor: c.color, backgroundColor: c.soft }]}
-                    onPress={() => setCatFilter(c.key)}
-                  >
-                    <View style={[styles.catDot, { backgroundColor: c.color }]} />
-                    <Text style={[styles.catChipText, on && { color: c.color }]}>{c.label}</Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-
-            <Text style={styles.hint}>
-              长按某条可以删掉 · 点「详情」能改内容、标重要 · 顶部可搜索
-            </Text>
-          </View>
-        ) : null}
-
-        <StateView
-          state={state}
-          message={message}
-          onRetry={reload}
-          emptyText="还没有任务。在下面输入框里写一条，按「添加」。"
-        >
-          <FlatList
-            data={visible}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            contentContainerStyle={styles.list}
-            keyboardShouldPersistTaps="handled"
-            ListEmptyComponent={
-              filteredOut ? (
-                <View style={styles.emptyBox}>
-                  <Text style={styles.emptyTitle}>这里没有任务</Text>
-                  <Text style={styles.emptyHint}>{emptyHintText(filter, query)}</Text>
-                </View>
-              ) : null
-            }
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                tintColor={colors.accent}
-              />
-            }
-          />
-        </StateView>
       </View>
 
-      <View style={styles.composer}>
-        <TextInput
-          style={styles.input}
-          value={draft}
-          onChangeText={setDraft}
-          placeholder="想做点什么？"
-          placeholderTextColor={colors.sub}
-          returnKeyType="done"
-          onSubmitEditing={submit}
-          maxLength={80}
-        />
-        <Pressable
-          style={[styles.addBtn, !canAdd && styles.addBtnOff]}
-          onPress={submit}
-          disabled={!canAdd}
-        >
-          <Text style={styles.addBtnText}>添加</Text>
-        </Pressable>
-      </View>
     </View>
   );
 }
