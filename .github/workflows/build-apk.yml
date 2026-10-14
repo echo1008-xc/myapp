@@ -1,0 +1,38 @@
+name: Build Android APK (EAS Cloud)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [clean-v1.0.0]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli --registry=https://registry.npmmirror.com
+
+      - name: Install dependencies
+        run: npm install --registry=https://registry.npmmirror.com
+
+      - name: Initialize EAS project (link to new Expo account)
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          CI: "1"
+        run: eas init --non-interactive --force
+
+      - name: Build APK on EAS cloud
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          CI: "1"
+        run: eas build -p android --profile preview --non-interactive --wait
