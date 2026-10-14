@@ -1,11 +1,14 @@
 {
   "expo": {
+    "owner": "echo1008xcs-team",
     "name": "糖Gi可De",
     "slug": "myapp",
     "version": "1.0.0",
     "icon": "./assets/icon.png",
     "orientation": "default",
-    "updates": {},
+    "updates": {
+      "url": "https://u.expo.dev/bca83d04-4625-4cd0-b058-8c8c2307eabb"
+    },
     "scheme": "echomyapp",
     "userInterfaceStyle": "light",
     "backgroundColor": "#FFFFFF",
@@ -54,7 +57,9 @@
     ],
     "extra": {
       "router": {},
-      "eas": {},
+      "eas": {
+        "projectId": "bca83d04-4625-4cd0-b058-8c8c2307eabb"
+      },
       "supabaseUrl": "https://oaqknzdiszpohgavbvmr.supabase.co",
       "supabaseAnonKey": "sb_publishable_vrx39NKtFhym2KwsD3_9Iw_k3yn5HZ7"
     },

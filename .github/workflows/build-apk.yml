@@ -25,11 +25,16 @@ jobs:
       - name: Install dependencies
         run: npm install --registry=https://registry.npmmirror.com
 
-      - name: Initialize EAS project (link to new Expo account)
+      - name: Link EAS project (skip if projectId already in app.json)
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           CI: "1"
-        run: eas init --non-interactive --force
+        run: |
+          if grep -q '"projectId"' app.json; then
+            echo "projectId present, using existing EAS project"
+          else
+            eas init --non-interactive --force
+          fi
 
       - name: Build APK on EAS cloud
         env:
