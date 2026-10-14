@@ -2,18 +2,18 @@
   "expo": {
     "name": "糖Gi可De",
     "slug": "myapp",
-    "version": "1.2.5",
+    "version": "1.0.0",
     "icon": "./assets/icon.png",
     "orientation": "default",
     "updates": {
-      "url": "https://u.expo.dev/61f9c242-c151-421a-9586-eaa60b27c4f7"
+      "url": "REPLACE_WITH_NEW_EXPO_UPDATES_URL"
     },
-    "scheme": "myapp",
+    "scheme": "echomyapp",
     "userInterfaceStyle": "light",
     "backgroundColor": "#FFFFFF",
     "android": {
-      "package": "com.aike.mytasks",
-      "versionCode": 8,
+      "package": "com.echo.mytasks",
+      "versionCode": 1,
       "edgeToEdgeEnabled": true,
       "permissions": [
         "android.permission.REQUEST_INSTALL_PACKAGES"
@@ -21,7 +21,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aike.mytasks"
+      "bundleIdentifier": "com.echo.mytasks"
     },
     "web": {
       "bundler": "metro"
@@ -57,12 +57,12 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "61f9c242-c151-421a-9586-eaa60b27c4f7"
+        "projectId": "REPLACE_WITH_NEW_EAS_PROJECT_ID"
       },
       "supabaseUrl": "https://oaqknzdiszpohgavbvmr.supabase.co",
       "supabaseAnonKey": "sb_publishable_vrx39NKtFhym2KwsD3_9Iw_k3yn5HZ7"
     },
-    "owner": "echo1008s-team",
+    "owner": "REPLACE_WITH_NEW_EXPO_ACCOUNT_SLUG",
     "runtimeVersion": {
       "policy": "appVersion"
     }

@@ -9,3 +9,14 @@ builds/
 
 # 本地预览/截图产物，不入库
 _preview/
+
+# 签名密钥与凭据，绝不入库
+upload-keystore.jks
+credentials.json
+
+# 本地调试/导出产物，不入库
+__tests__/
+_buildlist.json
+_export_check/
+_export_check2/
+_inspect/
